@@ -1,0 +1,145 @@
+[
+    {
+    "company_id": "ssdjkfjklsdjfsdklfjkl",
+    "zones": [{
+            "pickup_zone_id": "zone_a",
+            "dropoff_zone_id": "zone_a",
+            "price": 650
+        },
+        {
+            "pickup_zone_id": "zone_b",
+            "dropoff_zone_id": "zone_b",
+            "price": 650
+        },
+        {
+            "pickup_zone_id": "zone_c",
+            "dropoff_zone_id": "zone_c",
+            "price": 650
+        },
+        {
+            "pickup_zone_id": "zone_d",
+            "dropoff_zone_id": "zone_d",
+            "price": 650
+        },
+        {
+            "pickup_zone_id": "zone_a",
+            "dropoff_zone_id": "zone_b",
+            "price": 850
+        },
+        {
+            "pickup_zone_id": "zone_b",
+            "dropoff_zone_id": "zone_a",
+            "price": 850
+        }, {
+            "pickup_zone_id": "zone_c",
+            "dropoff_zone_id": "zone_a",
+            "price": 850
+        },
+        {
+            "pickup_zone_id": "zone_a",
+            "dropoff_zone_id": "zone_c",
+            "price": 850
+        },
+        {
+            "pickup_zone_id": "zone_b",
+            "dropoff_zone_id": "zone_c",
+            "price": 1000
+        }
+    ]
+    }, 
+    {
+        "company_id": "2djkfj34klsdjfsdklfjkl",
+        "zones": [{
+                "pickup_zone_id": "zone_a",
+                "dropoff_zone_id": "zone_a",
+                "price": 550
+            },
+            {
+                "pickup_zone_id": "zone_b",
+                "dropoff_zone_id": "zone_b",
+                "price": 550
+            },
+            {
+                "pickup_zone_id": "zone_c",
+                "dropoff_zone_id": "zone_c",
+                "price": 550
+            },
+            {
+                "pickup_zone_id": "zone_d",
+                "dropoff_zone_id": "zone_d",
+                "price": 550
+            },
+            {
+                "pickup_zone_id": "zone_a",
+                "dropoff_zone_id": "zone_b",
+                "price": 800
+            },
+            {
+                "pickup_zone_id": "zone_b",
+                "dropoff_zone_id": "zone_a",
+                "price": 800
+            }, {
+                "pickup_zone_id": "zone_c",
+                "dropoff_zone_id": "zone_a",
+                "price": 800
+            },
+            {
+                "pickup_zone_id": "zone_a",
+                "dropoff_zone_id": "zone_c",
+                "price": 800
+            },
+            {
+                "pickup_zone_id": "zone_b",
+                "dropoff_zone_id": "zone_c",
+                "price": 900
+            }
+        ]
+        },
+        {
+            "company_id": "oydjkfj34klsdjfsdklfjkl",
+            "zones": [{
+                    "pickup_zone_id": "zone_a",
+                    "dropoff_zone_id": "zone_a",
+                    "price": 400
+                },
+                {
+                    "pickup_zone_id": "zone_b",
+                    "dropoff_zone_id": "zone_b",
+                    "price": 400
+                },
+                {
+                    "pickup_zone_id": "zone_c",
+                    "dropoff_zone_id": "zone_c",
+                    "price": 450
+                },
+                {
+                    "pickup_zone_id": "zone_d",
+                    "dropoff_zone_id": "zone_d",
+                    "price": 400
+                },
+                {
+                    "pickup_zone_id": "zone_a",
+                    "dropoff_zone_id": "zone_b",
+                    "price": 750
+                },
+                {
+                    "pickup_zone_id": "zone_b",
+                    "dropoff_zone_id": "zone_a",
+                    "price": 750
+                }, {
+                    "pickup_zone_id": "zone_c",
+                    "dropoff_zone_id": "zone_a",
+                    "price": 750
+                },
+                {
+                    "pickup_zone_id": "zone_a",
+                    "dropoff_zone_id": "zone_c",
+                    "price": 750
+                },
+                {
+                    "pickup_zone_id": "zone_b",
+                    "dropoff_zone_id": "zone_c",
+                    "price": 870
+                }
+            ]
+            }]

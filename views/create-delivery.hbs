@@ -1,0 +1,45 @@
+
+
+<br>
+<br>
+<form action="/create-delivery" method="post">
+    <div class="row">
+        <div class="form-group col-md-6">
+            <h6 class="text-muted">Company Info</h6>
+            <hr>
+            <input type="hidden" name="id" id="" value="{{#if edit}}{{aCompany.id}}{{/if}}">
+            <label for="name" id="name_error">Company Name*</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{#if edit}}{{aCompany.name}}{{/if}}" placeholder="Enter Company Name"
+                required="true">
+           
+             <br>
+              <label for="email" id="phone_error">Email*</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{#if edit}}{{aCompany.email}}{{/if}}" placeholder="Enter Email Address"
+                required="true">
+                <br>
+            <label for="address" id="address_error">Company Address*</label>
+            <textarea name="address" class="form-control" id="address" cols="30" rows="3" required="true">{{#if edit}}{{aCompany.address}}{{/if}}</textarea>
+
+        
+
+           
+            <br>
+        </div>
+        <div class="col-md-6">
+             <h6 class="text-muted">Contact Details</h6>
+            <hr>
+            <label for="phone" id="phone_error">Phone*</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="{{#if edit}}{{aCompany.phone.[0]}}{{/if}}" placeholder="Enter Phone Number"
+                required="true">
+            <br>
+            <label for="phone" id="phone_error">Phone-2 </label>
+            <input type="text" class="form-control" id="phone" name="phone2" value="{{#if edit}}{{aCompany.phone.[1]}}{{/if}}" placeholder="Enter Phone Number"
+                required="true">
+                <br>
+                <hr>
+           
+            <button type="submit" class="btn btn-success">Save Company</button>
+            <br>
+        </div>
+    </div>
+

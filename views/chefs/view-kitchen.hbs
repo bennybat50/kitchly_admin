@@ -1,0 +1,242 @@
+<style>
+    .btn {
+        border-radius: 20px !important;
+    }
+
+    .btn i {
+        font-size: 10px;
+        padding-right: 10px;
+    }
+
+    .btn-success {
+        background-color: #34D186 !important;
+        border: 1px solid #34D186 !important;
+    }
+
+    .views-gallery img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+</style>
+<div class="kitchen-details">
+    {{#if kitchen.type }}
+    <div class="container py-5">
+        <div class="text-center">
+            <h2>No kitchen Yet</h2>
+        </div>
+    </div>
+    {{else }}
+
+    <div class="card mb-4 kitchen-banner"
+        style="background-image:linear-gradient(180deg,rgba(10, 46, 28, 0.349),rgba(10, 46, 28, 0.349)), url({{ kitchen.profile_image }});">
+        <div class="card-body ">
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="{{ kitchen.profile_image }}" alt="avatar" class="rounded-circle img-fluid">
+                </div>
+                <div class="col-md-5 text">
+                    <h3 class=" text-white my-1">{{ kitchen.kitchen_name }}</h3>
+                    <i class="text-white mb-3">{{ kitchen.caption }}</i>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+
+            <div class="card mb-4 mb-lg-0">
+                <div class="card-body p-2 text-center">
+                    <h6>Online Status </h6>
+                    {{#if kitchenMore.is_active }}
+                    <a href="/deactivate-kitchen/{{kitchen.kitchen_id}}?chef_id={{kitchenMore.user_id}}"
+                        class="btn btn-danger"><i class="bi bi-x-circle-fill text-white"></i> <b>Deactivate</b> </a>
+                    {{else }}
+
+                    <a href="/activate-kitchen/{{kitchen.kitchen_id}}?chef_id={{kitchenMore.user_id}}"
+                        class="btn btn-success"><i class="bi bi-check-circle-fill text-white"></i> <b>Activate</b> </a>
+                    {{/if }} |
+                    {{#if kitchenMore.opened_for_order }}
+                    <a href="/close-kitchen/{{kitchen.kitchen_id}}?chef_id={{kitchenMore.user_id}}"
+                        class="btn btn-danger"><i class="bi bi-chevron-double-right text-white"></i> <b>Stop Orders</b>
+                    </a>
+                    {{else }}
+
+                    <a href="/open-kitchen/{{kitchen.kitchen_id}}?chef_id={{kitchenMore.user_id}}"
+                        class="btn btn-success"><i class="bi bi-chevron-double-left text-white"></i> <b>Open Orders</b>
+                    </a>
+                    {{/if }}
+
+                    <br>
+                    <br>
+                    <hr>
+
+                    <h6>Financials </h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class=" text-center">
+                                <small class="text-muted summary-title">TOTAL PENDING</small>
+                                <h5 class="m-1">{{ kitchen.summary.total_pending }}</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <small class="text-muted summary-title">TOTAL ORDERS</small>
+                                <h5 class="m-1">{{ kitchen.summary.total_orders }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <small class="text-muted summary-title">ORDERS DELIVERED</small>
+                                <h5 class="m-1">{{ kitchen.summary.total_delivered }}</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="  text-center">
+                                <small class="text-muted summary-title">ORDERS REJECTED</small>
+                                <h5 class="m-1">{{ kitchen.summary.total_rejected }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <small class="text-muted summary-title">REVIEWS</small>
+                                <h5 class="m-1">{{ kitchen.summary.total_reviews }}</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="  text-center ">
+                                <small class="text-muted summary-title">SUM SALES</small>
+                                <h5 class="m-1">₦{{ kitchen.summary.over_all_sales_made }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-4 ">
+                <div class="card-body text-center">
+                    <h6> Cusines</h6>
+                    <div class="row">
+                        {{#each kitchen.cuisine_type }}
+                        <p class="cusine-badge">{{this}}</p>
+
+                        {{/each }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Full Name</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ kitchen.user_name }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Email</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ kitchen.kitchen_contact.email }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Kitchen Phone</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ kitchen.kitchen_contact.phone }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Chef Mobile</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ kitchen.user_contact.phone }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Address</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ kitchenMore.district }}, {{ kitchen.kitchen_contact.addr }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4 mb-md-0">
+                        <div class="card-body">
+
+                            <div id="slider-container">
+                                <div id="sliderTarget">
+                                    <div style="background-image: url({{ kitchenMore.views.one }})"></div>
+                                    <div style="background-image: url({{ kitchenMore.views.two }})"></div>
+                                    <div style="background-image: url({{ kitchenMore.views.three }})"></div>
+                                    <div style="background-image: url({{ kitchenMore.views.four }})"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-4 mb-md-0">
+                        <div class="card-body">
+                            
+                            <h6>TAKE OF LOCATION: <b class="cusine-badge " style="font-size: large;">{{ kitchenMore.district }}</b></h6>
+                            <hr>
+                            <p class="mb-2"><span class="text-primary font-italic me-1">Deliver </span> Areas
+                            </p>
+                            <h6>DROP OFF LOCATIONS:</h6>
+                            {{#each kitchenMore.delivery.self_delivery }}
+                            <p class="cusine-badge " style="font-size: large;"><b>{{name}}:</b>--N{{price}} </p>
+                            {{/each }}
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{/if }}
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/skippr.min.js"></script>
+<script>
+    $("#sliderTarget").skippr({
+        transition: 'fade',
+        speed: 1000,
+        easing: 'easeOutQuart',
+        navType: 'bubble',
+        childrenElementType: 'div',
+        arrows: true,
+        autoPlay: true,
+        autoPlayDuration: 5000,
+        keyboardOnAlways: true,
+        hidePrevious: false
+    });
+</script>

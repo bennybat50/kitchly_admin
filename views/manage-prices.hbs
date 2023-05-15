@@ -1,0 +1,254 @@
+<form action="" method="post">
+    <div class="row">
+        <div class="form-group col-md-12" id="summary">
+            <input type="text" id="company_id" hidden value="{{company_id}}">
+            <br>
+
+            <div class="row">
+                <div class="col">
+                    <h6 class="text-muted">Delivery Locations with 10Km</h6>
+                </div>
+                <div class="col-auto">
+                    <div class="row">
+                        <div class="col">
+                            <a href="#summary" class="btn btn-primary btn-action p-2" id="setPrice10Km" type="button">
+                                << Back 10Km Zones </a>
+                        </div>
+                        <div class="col">
+                            <a href="#summary" class="btn btn-primary btn-action p-2" id="setPrice20Km"
+                                type="button">Set Price for locations within 20Km >></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <br>
+            <div class="displayzones">
+                {{!-- <div class="zone">
+                    <div class="priceLabel">Price</div>
+                    <div class="priceAmount">N650</div>
+                    <div class="zoneName">zone 1</div>
+                    <div class="locations">
+                        <div class="location">
+                            <div class="row p-2">
+                                <div class="col">Wuse</div>
+                                <div class="col-auto"><span class="closeBtn">X</span></div>
+                            </div>
+                        </div>
+                        <div class="location">Wuse</div>
+                        <div class="location">Wuse</div>
+                        <div class="location">Wuse</div>
+                    </div>
+                    <div class="remove">Remove</div>
+                </div> --}}
+
+            </div>
+            <br>
+            <br>
+            <div class="displayzones2">
+                <div class="zone">
+                    <div class="priceLabel">Within 20Km</div>
+                    <div class="priceAmount"><span>₦</span><input type="number" placeholder="0"></div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="zone" id="Zones20km_1">
+
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <br>
+                            <br>
+                            <h4><i class="fas fa-arrow-left"></i></h4>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <h4> <i class="fas fa-arrow-right"></i></h4>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="zone" id="Zones20km_2">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="zone">
+                    <div class="priceLabel">Within 20Km </div>
+                    <div class="priceAmount"><span>₦</span><input type="number" placeholder="0"></div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="zone" id="Zones20km_3">
+
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <br>
+                            <br>
+                            <h4><i class="fas fa-arrow-left"></i></h4>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <h4> <i class="fas fa-arrow-right"></i></h4>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="zone" id="Zones20km_4">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="zone">
+                    <div class="priceLabel">Within 20Km</div>
+                    <div class="priceAmount"><span>₦</span><input type="number" placeholder="0"></div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="zone" id="Zones20km_5">
+
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <br>
+                            <br>
+                            <h4><i class="fas fa-arrow-left"></i></h4>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <h4> <i class="fas fa-arrow-right"></i></h4>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="zone" id="Zones20km_6">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-auto">
+            <a href="" class="btn btn-primary btn-action p-2" id="nextBtn" type="button">Save Price List</a>
+        </div>
+    </div>
+    <br>
+    <br>
+</form>
+<script src="/js/jquery.min.js"></script>
+<script>
+    $(".displayzones").show()
+    $(".displayzones2").hide()
+    $('#setPrice10Km').hide()
+    let selectedzones = []
+
+    $("#selectedCompanies").on('change', function () {
+        loadSelectedCompany($(this).val())
+    })
+
+loadSelectedCompany()
+    function loadSelectedCompany() {
+        $.ajax({
+            type: "GET",
+            url: "https://kitchly.co/carriage/companies/"+$("#company_id").val()+  "/delivery-price",
+            success: function (res) {
+                selectedzones = res
+                let data=[];
+                pairs=[];
+                prices={};
+                
+
+                //Sort Pairs
+                 for (let com = 0; com < selectedzones.length; com++) {
+                    if(! pairs.includes(selectedzones[com]['pair'])){
+                         pairs.push(selectedzones[com]['pair'])
+                         prices[selectedzones[com]['pair']]=selectedzones[com]['delivery_price']
+                    }
+                 }
+
+               //Attach Zones
+                pairs.forEach((e)=>{
+                    zones=[]
+                     for (let com = 0; com < selectedzones.length; com++) {
+                        if(selectedzones[com]['pair']==e){
+                            for (let i = 0; i < selectedzones[com]['routes'].length; i++) {
+                            if(! zones.includes(selectedzones[com]['routes'][i]) ){
+                                    zones.push(selectedzones[com]['routes'][i])
+                                }
+                            }
+                        }
+                 }
+                 data.push({ "pair":e, "routes":zones, "price":prices[e]})
+                })
+                
+                row = ''
+                for (let com = 0; com < data.length; com++) {
+                    aLocation = ''
+                    for (let i = 0; i < data[com]['routes'].length; i++) {
+                        aLocation += `<div class="location">${data[com]['routes'][i]}</div>`
+                    }
+                    row += ` <div class="zone">
+                            <div class="priceLabel">Within ${changeZoneName(data[com]['pair'])}</div>
+                            <div class="priceAmount" id="${data[com]['pair']}"><span>₦</span><input type="number" placeholder="0" value="${data[com]['price']}"></div>
+                            <div class="zoneName">${changeZoneName(data[com]['pair'])}</div>
+                            <div class="locations">
+                                ${aLocation}
+                            </div>
+                            
+                        </div>`
+                }
+
+                $('.displayzones').html(row)
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        })
+
+
+
+    }
+
+
+   function changeZoneName(data){
+        switch(data){
+            case "zone_a":return "ZONE A"; break;
+            case "zone_b":return "ZONE B"; break;
+            case "zone_c":return "ZONE C"; break;
+            case "zone_d":return "ZONE D"; break;
+            case "zone_e":return "ZONE E"; break;
+            case "zone_f":return "ZONE F"; break;
+            case "zone_g":return "ZONE G"; break;
+            case "zone_h":return "ZONE H"; break;
+            case "zone_i":return "ZONE I"; break;
+        }
+    }
+
+    $('.displayzones').on('click', '.remove', function () {
+        selectedzones.splice($(this).attr('id'), 1)
+        localStorage.setItem('selectedzones', JSON.stringify(selectedzones))
+        loadSelectedzones()
+    })
+    $('#basicPrice').on('change', function () {
+
+        $('.priceAmount').html(`₦${$(this).val()}`)
+    })
+    $('#setPrice20Km').on('click', function () {
+        $(".displayzones").hide()
+        $(".displayzones2").show()
+        $('#setPrice10Km').show()
+    })
+
+    $('#setPrice10Km').on('click', function () {
+        $(".displayzones").show()
+        $(".displayzones2").hide()
+        $('#setPrice10Km').hide()
+    })
+
+</script>

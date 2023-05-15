@@ -1,0 +1,258 @@
+<style>
+    .countDish {
+        width: 45px;
+        height: 25px;
+        background-color: rgb(51, 63, 51);
+        color: white;
+        font-size: 12px;
+        padding: 5px;
+        text-align: center;
+        justify-content: center;
+        border-radius: 200px;
+    }
+</style>
+
+<form action="" method="post">
+    <div class="row">
+        <div class="form-group col-md-12" id="summary">
+            <div class="row">
+                <div class="col-md-3">
+                    <select name="status" id="selectedStatus" class="form-control">
+                        <option value="">Select Status</option>
+                        <option value="PENDING">PENDING</option>
+                        <option value="ACCEPTED">ACCEPTED</option>
+                        <option value="IN_PROGRESS">IN_PROGRESS</option>
+                        <option value="READY">READY</option>
+                        <option value="IN_TRANSIT">IN_TRANSIT</option>
+                        <option value="DELIVERED">DELIVERED</option>
+                        <option value="CONFIRMED">CONFIRMED</option>
+                        <option value="CANCELLED">CANCELLED</option>
+                        <option value="REJECTED">REJECTED</option>
+                        <option value="RUNNING_LATE">RUNNING_LATE</option>
+                        <option value="DELAYED_ORDER">DELAYED_ORDER</option>
+                        <option value="DELAYED_DELIVERY">DELAYED_DELIVERY</option>
+                    </select>
+                </div>
+
+            </div>
+            <hr>
+            <br>
+</form>
+
+
+<div class="row allOrders">
+
+</div>
+
+<script src="/js/jquery.min.js"></script>
+<script>
+    loadOrders("PENDING")
+
+    $("#selectedStatus").on('change', function () {
+        loadOrders($(this).val())
+    })
+
+
+    function loadOrders(name) {
+        $.ajax({
+            type: "get",
+            url: `https://kitchly.co/admin/v1/orders/today-status?type=${name}`,
+            success: function (res) {
+                orders = res.orders.reverse()
+                view = ""
+                orders.forEach((order) => {
+                    
+                    view += ` <div class="col-md-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="card-title"> <small><b> <span class="text-muted">Order:</span> #${order.order_id}</b></small>  </h6>
+                        </div>
+                         <div class="col-auto">
+                            <h6 class="card-title countDish"><i class="bi bi-basket2"></i> ${order.dish_count}</h6>
+                        </div>
+                    </div>
+                    <hr>
+                    <h6 class="card-subtitle mb-2"><span class="text-muted">Kitchen: </span>${order.kitchen_name} </h6>
+                    <p class="card-text oderDescp">${order.order_descp ?? "<br>"}</p>
+                    <hr>
+                    <a href="#" class="card-link" data-toggle="modal" data-target="#exampleModal${order.order_id}">View Details</a>
+                   
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal -->
+<div class="modal fade" id="exampleModal${order.order_id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ORDER DETAILS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div class="appShadow mt-3 mb-2 order-detail">
+                <div class="pl-2 pr-2">
+                    <div class="row py-2">
+                        <div class="col">
+                            <h6><span class="text-secondary" style="font-size: 14px;"> #ID:</span><span
+                                    style="font-size: 25px;" ></span></h6>
+                        </div>
+                        <div class="col">
+                            <h6><span style="font-size: 12px;" id="status-Mb"> </span></h6>
+                        </div>
+                        <div class="col-auto  pt-1" >
+                             
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="px-2">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="pb-2 text-secondary"><i class="bi bi-geo-fill" style="font-size: 20px;"></i>
+                                Pick-Up From: </h6>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p><b>Kitchen</b> </p>
+                                </div>
+                                <div class="col-9">
+                                    <p ></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p><b>District:</b> </p>
+                                </div>
+                                <div class="col-9">
+                                    <p id=""></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p><b>Address:</b> </p>
+                                </div>
+                                <div class="col-9">
+                                    <p id=""></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p><b>Phone:</b> </p>
+                                </div>
+                                <div class="col-9">
+                                    <p id=""></p>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="col-md-6">
+                             <hr>
+                            <h6 class="pb-2 text-secondary"><i class="bi bi-geo-alt-fill" style="font-size: 20px;"></i>
+                                Deliver To: </h6>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p><b>Customer </b> </p>
+                                </div>
+                                <div class="col-9">
+                                    <p id=""> </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p><b>District:</b> </p>
+                                </div>
+                                <div class="col-9">
+                                    <p id=""></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p><b>Address:</b> </p>
+                                </div>
+                                <div class="col-9">
+                                    <p id=""></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p><b>Phone:</b> </p>
+                                </div>
+                                <div class="col-9">
+                                    <p id=""></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="px-2">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="pb-2 text-secondary"><i class="bi bi-cash" style="font-size: 20px;"></i> Payment
+                                Details:</h6>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p><b>Delivery Fee:</b> </p>
+                                </div>
+                                <div class="col-6">
+                                    <p id=""></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p><b>Payment Method:</b> </p>
+                                </div>
+                                <div class="col-6">
+                                    <p>Cash</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <hr>
+                            <h6 class="pb-2 text-secondary"><i class="bi bi-box-seam"></i> Package Details:</h6>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p><b>No of Items:</b> </p>
+                                </div>
+                                <div class="col-9">
+                                    <p id=""></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p><b>Description:</b> </p>
+                                </div>
+                                <div class="col-9">
+                                    <p id=""></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+               <div class="copy-details" id="copyBtn">Copy Details</div>
+            </div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+        `
+                })
+
+                $('.allOrders').html(view)
+
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        })
+
+    }
+
+
+</script>

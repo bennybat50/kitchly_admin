@@ -1,0 +1,54 @@
+<%- include('./includes/header.ejs') %>
+<%- include('./includes/nav.ejs') %>
+
+
+  
+        
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard</h1>
+
+</div>
+
+<div class="row">
+    <div class="d-info-card">
+        <a>
+            <div class="card-text">Students</div>
+            <div class="fsize">4</div>
+            <div style="position:absolute;margin-top:90px;margin-left:-70px;">
+                <div style="font-size: 11px;">
+                    Male 0
+                </div>
+                <div style="font-size: 11px;">
+                    Female 0
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="d-info-card">
+        <a href="/admin/schools">
+            <div class="card-text">School</div>
+            <div class="fsize">3</div>
+        </a>
+    </div>
+    <div class="d-info-card">
+        <a href="/admin/issues">
+            <div class="card-text">Issues Today</div>
+            <div class="fsize">0</div>
+        </a>
+    </div>
+    <div class="d-info-card">
+        <a href="/admin/inflow">
+            <div class="card-text">Expected Inflow</div>
+            <div class="fsize">0</div>
+        </a>
+    </div>
+    <div class="d-info-card">
+        <a href="/admin/instructors">
+            <div class="card-text">Instructors</div>
+            <div class="fsize">1</div>
+        </a>
+    </div>
+</div>
+
+
+<%- include('./includes/footer.ejs') %>

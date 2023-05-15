@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+        {{#each kitchens }}
+        <div class="col-md-3">
+            <div class="card mb-2">
+                <div class="card-body">
+                    <small class="text-muted">Kitchen Name: </small><br>
+                    <h6 class="card-title  mt-1">{{ name }} </h6>
+                    <hr>
+                    <small class="text-muted">Chef Name: </small><br>
+                     <h6 class="card-title mt-1">{{ chef_name}} </h6>
+                     <hr>
+                    <b>Contact Info:</b>
+                    <p class="card-text oderDescp"><span class="text-muted">Phone: </span> {{phone}}</p>
+                    <p class="card-text oderDescp"><span class="text-muted">Email: </span> {{email}}</p>
+                    <hr>
+                    <b>Address:</b>
+                    <p class="card-text oderDescp"><span class="text-muted">Land-Mark: </span> {{location.landmark}} </p>
+                    <p class="card-text oderDescp"><span class="text-muted">Address: </span> {{location.address}} </p>
+
+                </div>
+            </div>
+        </div>
+        {{/each }}
+    </div>
+</div>

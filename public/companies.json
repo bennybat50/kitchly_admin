@@ -1,0 +1,19 @@
+[{
+    "id": "ssdjkfjklsdjfsdklfjkl",
+    "name": "POA DELIVERIES",
+    "email": "poadeliveries@gmail.com",
+    "phone": ["0703423423", "09034534534"],
+    "address": "No 12 wazobia street"
+}, {
+    "id": "2djkfj34klsdjfsdklfjkl",
+    "name": "KALI DELIVERIES",
+    "email": "kalideliveries@gmail.com",
+    "phone": ["0703423423", "09034534534"],
+    "address": "No 12 wazobia street"
+}, {
+    "id": "oydjkfj34klsdjfsdklfjkl",
+    "name": "Oya Now",
+    "email": "puanow@gmail.com",
+    "phone": ["0703423423", "09034534534"],
+    "address": "No 12 wazobia street"
+}]

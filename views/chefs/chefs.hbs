@@ -1,0 +1,34 @@
+
+
+<div class="card" >
+  <div class="card-body">
+    <table class="table table-hover table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Verified</th>
+            <th>Stage</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each chefs }}
+        <tr>
+            <td>{{ first_name }} {{ last_name }}</td>
+            <td>{{ email }}</td>
+            <td>{{ phone }}</td>
+            <td>{{#if is_verified}}  <span class="badge bg-success text-white">Verified</span> {{else}} <span class="badge bg-warning text-white">Pending</span>  {{/if}}</td>
+            <td>{{ stage }}</td>
+            <td> <a href="chefs/view-kitchen/{{user_id}}" class="view-btn">View Kitchen </a></td>
+        </tr>
+        {{/each }}
+
+    </tbody>
+    
+</table>
+<a href="/chefs?page={{ lastPage }}" class="btn btn-sm btn-primary">Previous {{ lastPage }}</a>
+<a href="/chefs?page={{ currentPage }}" class="btn btn-sm btn-primary">Next {{ currentPage }}</a>
+  </div>
+</div>

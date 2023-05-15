@@ -1,0 +1,70 @@
+
+  
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><img src="images/kitchly.png" width="30" alt=""> Kitchly Admin</a>
+      <input class="form-control form-control-dark w-100" aria-label="Search" type="text" placeholder="Search">
+       <a href="" class="navbar-nav text-white p-3"><i class="bi bi-bell-fill"></i></a>
+      <a href="" class="navbar-nav text-white p-3"><i class="bi bi-chat-right-text-fill"></i></a>
+      <ul class="navbar-nav px-3">
+        
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">Sign out</a>
+        </li>
+      </ul>
+    </nav>
+  
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+                    <li class="nav-item">
+                          <a class="nav-link {{#if pathHome  }} active  {{/if}}" href="/"><i class="bi bi-house-door-fill"></i> Dashboard <span class="sr-only">(current)</span>
+                          </a>
+                           <hr />
+                    </li>                     
+
+                    <li class="nav-item">
+                        <a class="nav-link {{#if pathZone  }} active  {{/if}}" href="/create-zones">
+                          <i class="bi bi-geo-alt-fill"></i> Manage Zones
+                        </a>
+                        <hr />
+                    </li> 
+
+                    <li class="nav-item">
+                          <a class="nav-link {{#if pathCompany  }} active  {{/if}}" href="/manage-companies"><i class="bi bi-bicycle"></i> Delivery Companies
+                          </a> 
+                          <hr  />
+                    </li>
+                     <li class="nav-item">
+                          <a class="nav-link {{#if pathOrder  }} active  {{/if}}" href="/orders"><i class="bi bi-basket2"></i>  Orders
+                          </a> 
+                          <hr />
+                    </li> 
+                   
+                     <li class="nav-item">
+                          <a class="nav-link {{#if pathChef  }} active  {{/if}}" href="/chefs?page=1"><i class="bi bi-people-fill"></i>  Chef Registrations
+                          </a> 
+                          <hr  />
+                    </li>
+                     <li class="nav-item">
+                          <a class="nav-link {{#if pathDistricts  }} active  {{/if}}" href="/districts"><i class="bi bi-geo-alt-fill"></i> All Districts
+                          </a> 
+                          <hr  />
+                    </li>
+
+                     <li class="nav-item">
+                          <a class="nav-link {{#if pathMails  }} active  {{/if}}" href="/send-mails"><i class="bi bi-envelope-fill"></i> Send Mails
+                          </a> 
+                    </li>
+                    
+                   
+                    
+            </ul>
+          </div>
+        </nav>
+        <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-2" role="main">
+          <div class="container">
+            <h6>{{pagetitle}}</h6>
+            <br>

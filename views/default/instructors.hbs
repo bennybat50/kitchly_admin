@@ -1,0 +1,227 @@
+
+<div class="row">
+   <div class="col-md-10">
+   </div>
+   <div class="col-md-2">
+    <button class="btn btn-primary" id="createInstructor" data-toggle="modal" data-target="#addInstructor">Add Instructor</button>
+   </div>
+</div>
+<br>
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Salary</th>
+                <th>Gender</th>
+                <th>Married</th>
+                <th>Date Of Birth</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+          <tbody>
+            {{#each instructors }}
+          <tr>
+            <td>{{ first_name }} {{ other_name }} {{ last_name }}</td>
+              <td>{{ phone }}</td>
+              <td>{{ email }}</td>
+              <td>{{ salary }} </td>
+              <td>{{ gender }}</td>
+              <td>{{ married }}</td>
+              <td>{{ dob }}</td>
+              <td>
+                  <button class="btn btn-primary assignSchool"  data-toggle="modal" data-target="#assignSchool" id="{{ id }}">Assign School</button>
+                  <button class="btn btn-primary edit-instructor"   data-toggle="modal" data-target="#addInstructor"
+                  id="{{ id }}"
+                  first_name="{{ first_name }}"
+                  other_name="{{ other_name }}"
+                  last_name="{{ last_name }}"
+                  phone="{{ phone }}"
+                  email="{{ email }}"
+                  salary="{{ salary }}"
+                  gender="{{ gender }}"
+                  married="{{ married }}"
+                  dob="{{ dob }}"
+                   >Edit</button>
+                  <button class="btn btn-danger delete" data-toggle="modal" data-target="#deleteInstructorModal" id="{{ id }}">Delete    </button>
+
+              </td>
+          </tr>
+         {{/each}}
+    </tbody></table>
+  </div>
+
+  <div tabindex="-1" class="modal fade" id="addInstructor" role="dialog" aria-hidden="true" aria-labelledby="exampleModalLabel" style="width: 400px; display: none; background:transparent; margin: 0px auto; padding-top: 0px !important; padding-bottom: 0px !important;border:none" data-uri="http://localhost:3004">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Tutor</h5>
+        </div>
+        <form action="/admin/instructors" method="post" id="instructorForm">
+          <div class="modal-body">
+            
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="first_name">First Name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name">
+                      </div>
+
+                      <div class="form-group col-md-6">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Last Name">
+                      </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="other_name">Middle Name</label>
+                        <input type="text" class="form-control" id="other_name" name="other_name" placeholder="Enter Middle Name">
+                      </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputAddress">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email Address" name="email"> 
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="number" class="form-control" id="phone" placeholder="Enter Phone Number" name="phone">
+                   
+                  </div>
+                  
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="salary">Salary</label>
+                        <input type="number" class="form-control" id="salary" placeholder="salary" name="salary"> 
+                      </div>
+                    <div class="form-group col-md-6">
+                        <label for="dob">Date Of Birth</label>
+                        <input type="date" class="form-control" id="dob" placeholder="salary" name="dob"> 
+                      </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="gender">Gender</label>
+                        <select name="gender" id="gender" class="form-control">
+                            <option value="">Select Gender</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                      </div>
+                    <div class="form-group col-md-6">
+                        <label for="married">Married</label>
+                        <select name="married" id="married" class="form-control">
+                            <option value="">Select Marital Status</option>
+                           
+                            <option value="false">Single</option>
+                            <option value="true">Married</option>
+                        </select>
+                      </div>
+                  </div>
+           
+        </div>
+        <div class="modal-footer">
+          <button class="btn" type="button" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary btn-action" type="submit">Save</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div tabindex="-1" class="modal fade" id="deleteInstructorModal" role="dialog" aria-hidden="true" aria-labelledby="exampleModalLabel" style="width: 400px; display: none; background:transparent; margin: 0px auto; padding-top: 0px !important; padding-bottom: 0px !important;border:none" data-uri="http://localhost:3004">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete Instructor?</h5>
+        </div>
+        <form action="/admin/instructors/delete" method="post">
+        <div class="modal-footer">
+          <button class="btn" type="button" data-dismiss="modal">Close</button>
+          <button class="btn btn-danger btn-action" type="submit">Delete</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+  <div tabindex="-1" class="modal fade" id="assignSchool" role="dialog" aria-hidden="true" aria-labelledby="exampleModalLabel" style="width: 400px; display: none; background:transparent; margin: 0px auto; padding-top: 0px !important; padding-bottom: 0px !important;border:none" data-uri="http://localhost:3004">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Assign School</h5>
+        </div>
+        <form action="/admin/instructors/assign-school" method="post">
+        <div class="modal-body">
+           
+                <input type="text" hidden id="assignSchoolInstructor_id" name="tutor_id">
+                <div class="form-group ">
+                    <label for="school">Choose School</label>
+                    <select name="school_id" id="school" class="form-control">
+                        <option value="">Select School</option>
+                        {{#each schools }}
+                        <option value="{{ id }}">{{ name }}</option>
+                        {{/each }}
+                    </select>
+                  </div>
+               
+        </div>
+        <div class="modal-footer">
+          <button class="btn" type="button" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary btn-action" type="submit">Save</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+
+
+<script>
+    
+    $("#createInstructor").click(function(){
+        $("#first_name").val("")
+        $("#last_name").val("")
+        $("#other_name").val("")
+        $("#email").val("")
+        $("#phone").val("")
+        $("#salary").val("")
+        $("#dob").val("")
+        $("#gender").val("")
+        $("#married").val("")
+        $(".modal-title").text("Add Instructor")
+        $("#instructorForm").attr('action',`/admin/instructors`)
+        })
+
+      $(".edit-instructor").click(function(){
+        $("#first_name").val($(this).attr('first_name'))
+        $("#last_name").val($(this).attr('last_name'))
+        $("#other_name").val($(this).attr('other_name'))
+        $("#email").val($(this).attr('email'))
+        $("#phone").val($(this).attr('phone'))
+        $("#salary").val($(this).attr('salary'))
+        $("#dob").val($(this).attr('dob'))
+        $("#gender").val($(this).attr('gender'))
+        $("#married").val($(this).attr('married'))
+        $(".modal-title").text("Update Instructor")
+        $("#instructorForm").attr('action',`/admin/instructors/update/${$(this).attr('id')}`)
+    })
+
+    $(".assignSchool").click(function(){
+        $(".modal-title").text("Assign School")
+        $("#assignSchoolInstructor_id").val($(this).attr('id'))
+    })
+
+    $(".delete").click(function(){
+        $(".modal-title").text("Delete Instructor?")
+        $("#deleteInstructor_id").val($(this).attr('id'))
+    })
+
+    
+
+</script>

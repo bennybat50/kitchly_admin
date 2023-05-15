@@ -1,0 +1,231 @@
+<style>
+    .selectedZones {
+        width: 100%;
+        padding: 20px;
+        background-color: #eeeeee;
+        border-radius: 5px;
+    }
+
+    .clip {
+        padding: 5px;
+        text-align: center;
+        background-color: #d6d6d6;
+        border-radius: 100px;
+        margin: 5px;
+        font-size: 14px;
+    }
+    .clip:hover{background-color: black; color: white;}
+
+    .selectedZones {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+    }
+    .displayzones{display: grid; grid-template-columns: 1fr 1fr 1fr 1fr ; grid-gap: 10px;}
+    .zone{width: 100%; border: 1px solid black; text-align: center;  justify-content: space-between;}
+    .priceLabel{background-color: black; padding: 5px; color: white; font-size: 16px;}
+    .priceAmount{padding: 15px;font-size: 25px; font-weight: 600; display: flex;}
+    .priceAmount input{border: 1px solid white; text-align: center; width: 100%;}
+    .zoneName{padding: 5px;font-size: 20px; font-weight: 600; background-color: #34D186;color: white;}
+    .location{padding: 10px 0px 10px 0px; font-size: 15px;}
+    .removezone{padding: 2px; background-color: rgb(0, 0, 0); color: white;font-size: 14px; cursor: pointer;} 
+    .editzone{padding: 2px; background-color: rgb(0, 0, 0); color: white;font-size: 14px; cursor: pointer;}
+</style>
+
+<br>
+<br>
+<form action="">
+    <div class="row">
+        <div class="form-group col-md-5">
+            <h6 class="text-muted">Add Zone</h6>
+
+            <hr>
+            <label for="zone_name" id="zone_name_error">Zone Name</label>
+            <input type="text" class="form-control" id="zone_name" name="zone_name" placeholder="Enter Zone Name"
+                required="true">
+            <br>
+            <h6 class="text-muted">Choose Locations</h6>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <select name="locations" id="locations" class="form-control" required="true" multiple>
+                        <option value="">Select Location</option>
+                        {{#each districts }}
+                        <option value="{{id }}">{{name }}</option>
+                        {{/each  }}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <a href="#" class="btn btn-primary btn-action p-2" id="includeBtn" type="button">Include
+                        Location</a>
+                </div>
+            </div>
+            <br>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="form-group col-md-5">
+             <h6>Selected locations</h6>
+             <hr>
+            <div class="selectedZones text-center" id="selectedZones">
+
+            </div>
+            <hr>
+            <div class="col-12">
+                <a href="#" class="btn btn-primary btn-action p-2" id="savezoneBtn" type="button">Save zone</a>
+            </div>
+
+        </div>
+
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+        <h6 class="text-muted">All zones</h6>
+            <hr>
+             <div class="displayzones" id="displayzones">
+                <div class="zone">
+                    <div class="priceLabel">Price</div>
+                    <div class="priceAmount">N650</div>
+                    <div class="zoneName">zone 1</div>
+                    <div class="locations">
+                        <div class="location">Wuse</div>
+                        <div class="location">Wuse</div>
+                        <div class="location">Wuse</div>
+                        <div class="location">Wuse</div>
+                    </div>
+                    <div class="remove">Remove</div>
+                </div>
+                
+            </div>
+           
+            
+    </div>
+    </div>
+</form>
+
+
+<script src="/js/jquery.min.js"></script>
+<script>
+
+    let locations=[]
+    let zones=[]
+    let editingZone=false
+    let oldName=""
+    $('#includeBtn').on('click',function(){
+        $('#locations :selected').each(function(){
+            locations.push( {"location":$(this).text(), "location_id":$(this).val()})
+        });
+       loadLocations()
+    })
+
+   
+
+
+   function loadLocations(){
+       row=''
+       for(let i=0; i< locations.length; i++){
+           row+=` <div class="clip" id="${i}" location_id="locations[i]['location_id']">${locations[i]['location']}</div>`
+       }
+       $('#selectedZones').html(row)
+    }
+
+    $('#selectedZones').on('click', '.clip',function(){
+
+        locations.splice($(this).attr('id'), 1)
+
+        loadLocations()
+    })
+
+    $('#savezoneBtn').on('click', function(){
+       if(editingZone){
+           updateZoneName()
+       }else{
+           saveLocations()
+       }
+    })
+
+     function saveLocations(){
+         let aZone={"name":$('#zone_name').val(), "locations":locations}
+        $.ajax({
+            type:"POST",
+            url:"https://kitchly.co/carriage/zones",
+            data:aZone,
+            success:function(res){
+                console.log(res)
+                loadzones()
+            },
+            error:function(err){
+                alert(err.statusText);
+            }
+        })
+    }
+    function updateZoneName(){
+         let aZone={"old_name":oldName, "new_name":$('#zone_name').val()}
+        $.ajax({
+            type:"POST",
+            url:"https://kitchly.co/carriage/zones/name",
+            data:aZone,
+            success:function(res){
+                console.log(res)
+                loadzones()
+            },
+            error:function(err){
+                alert(err.statusText);
+            }
+        })
+    }
+
+    loadzones()
+
+     function loadzones(){
+          $.ajax({
+            type:"GET",
+            url:"https://kitchly.co/carriage/zones",
+            success:function(res){
+                zones=res
+               row=''
+               for(let key in zones){
+                     aLocation=''
+                    for(let i=0; i <zones[key].length; i++){
+                        aLocation+=`<div class="location">${zones[key][i]['location']}</div>`
+                    }
+                     row+=` <div class="zone">
+                               <div class="editzone" name="${key}">Edit</div>
+                            <div class="zoneName">${key}</div>
+                            <div class="locations">
+                                ${aLocation}
+                            </div>
+                            
+                        </div>`
+               }
+               
+                $('#displayzones').html(row)
+            },
+            error:function(err){
+                alert(err.statusText);
+            }
+        })
+         
+      
+    }
+
+     $('#displayzones').on('click', '.removezone',function(){
+        zones.splice($(this).attr('id'), 1)
+         localStorage.setItem('zones', JSON.stringify(zones))
+        loadzones()
+    })
+
+    $('#displayzones').on('click', '.editzone',function(){
+        locations=[]
+        $('#zone_name').val($(this).attr('name'))
+        oldName=$(this).attr('name')
+        let saveLocations=zones[$(this).attr('name')]
+        saveLocations.forEach(locate=>{
+            locations.push( {"location":locate['location'], "location_id":locate['location_id']})
+        })
+        editingZone=true;
+        $('#savezoneBtn').text("Update Zone")
+       loadLocations()
+    })
+
+    
+</script>
