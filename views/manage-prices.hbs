@@ -158,6 +158,7 @@ loadSelectedCompany()
             type: "GET",
             url: "https://kitchly.co/carriage/companies/"+$("#company_id").val()+  "/delivery-price",
             success: function (res) {
+                console.log(res)
                 selectedzones = res
                 let data=[];
                 pairs=[];
