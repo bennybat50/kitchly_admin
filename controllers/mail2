@@ -12,35 +12,31 @@ require("dotenv").config();
 module.exports = {
   getSendMail: async (req, res, next) => {
 
+
     res.render("send-mails", { pagetitle: "Send Emails", pathMails: "mails" });
   },
-
-
-  getPromoMail: async (req, res, next) => {
-    res.render("mailTemplate-promo", { pagetitle: "Send Emails", pathMails: "mails" });
-  },
-
   postMail: async (req, res, next) => {
     let transporter = nodemailer.createTransport({
-      host: "smtppro.zoho.com",
-      port: 465,
-      secure: true,
+      host: "smtp.zeptomail.com",
+      port: 587,
       auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD,
-      },
-    });
+      user: "emailapikey",
+      pass: "wSsVR61yqRD4WK11njT5cek9mgxcVlz3QR4u3gCpunGqTPDD9cc4lBGdBwCgGvkcGG9uEzoapO0smB4B0DUNjtovz1wGCSiF9mqRe1U4J3x17qnvhDzMVmRZlBKBL40JwgtokmZiE88g+g=="
+      }
+  });
+  
 
     allemails.forEach(function (data, index) {
 
-      const emailTemplateSource = fs.readFileSync(path.join(__dirname, "../views/mailTemplate-promo.hbs"), "utf8")
+      const emailTemplateSource = fs.readFileSync(path.join(__dirname, "../views/mailTemplate-user.hbs"), "utf8")
       const template = handlebars.compile(emailTemplateSource)
       const htmlToSend = template({ name: data.name })
 
+
       let mailOptions = {
-        from: '"Kitchly App" <kitchly.kitchens@reworktechnologies.com>',
+        from: '"Kitchly App" <noreply@kitchly.co>',
         to: data.email,
-        subject: `Hello ${data.name} - Kitchly Cooks Are Ready To Serve You. `,
+        subject: `Welcome To Kitchly - ${data.name}`,
         html: htmlToSend
       };
 

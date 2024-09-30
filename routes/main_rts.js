@@ -28,6 +28,7 @@ router.get('/find-price', findPriceCtrl.getPrice);
 router.get('/manage-companies', manageCompnayCtrl.getCompanies); 
 router.get('/manage-companies/:id', createDeliveryCtrl.editCompany);
 router.get('/send-mails', mailsCtrl.getSendMail);
+router.get('/send-promo-mail', mailsCtrl.getPromoMail);
 router.post('/send-mails', mailsCtrl.postMail);
 router.get('/districts', districtsCtrl.getDistricts);
 router.get('/districts-kitchen/:id', districtsCtrl.getDistrictsKitchens);
